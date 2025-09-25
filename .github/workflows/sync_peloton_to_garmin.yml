@@ -55,11 +55,16 @@ jobs:
             }
           },
           "Peloton": {
-            "NumWorkoutsToDownload": ${{ github.event.inputs.workoutsToDownload || env.DEFAULT_WORKOUT_NUM }},
+            "NumWorkoutsToDownload": ${{ github.event.inputs.workoutsToDownload || env.DEFAULT_WORKOUT_NUM }}
           },
           "Garmin": {
             "Upload": true,
             "FormatToUpload": "fit"
+          },
+          "Device": {
+            "Manufacturer": "Garmin",
+            "ProductId": 3375,
+            "DeviceId": 1234567890
           },
           "Observability": {
             "Prometheus": {
@@ -94,6 +99,7 @@ jobs:
         name: output
         path: ${{ env.OUTPUT_DIR }}
         if-no-files-found: error
+
 
 
 
