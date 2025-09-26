@@ -2,7 +2,6 @@
 
 name: 🔄 Sync Workflow
 
-# Controls when the action will run.
 on:
   workflow_dispatch:
     inputs:
@@ -13,8 +12,7 @@ on:
         type: boolean
         default: false
   schedule:
-   - cron: '0 0 * * *'
-
+    - cron: '0 0 * * *'
 
 env:
   OUTPUT_DIR: /app/output
@@ -24,11 +22,11 @@ jobs:
     name: 🔄 Sync
     runs-on: ubuntu-latest
     container: 
-      image:  philosowaffle/peloton-to-garmin:console-stable
+      image: philosowaffle/peloton-to-garmin:console-stable
       options: --user root
     steps:
 
-    - name: 📁Create output directory
+    - name: 📁 Create output directory
       run: mkdir -p ${{ env.OUTPUT_DIR }}
 
     - name: 🗃 Create config file
@@ -69,13 +67,13 @@ jobs:
               "Enabled": false
             },
             "Serilog": {
-              "Using": [ "Serilog.Sinks.Console"],
+              "Using": [ "Serilog.Sinks.Console" ],
               "MinimumLevel": "Information"
             }
           }
         }
         EOT
-    
+
     - name: ▶ Run P2G Sync
       run: /app/ConsoleClient
       if: ${{ env.P2G_PELOTON__EMAIL && env.P2G_PELOTON__PASSWORD && env.P2G_GARMIN__EMAIL && env.P2G_GARMIN__PASSWORD }}
@@ -85,7 +83,7 @@ jobs:
         P2G_PELOTON__PASSWORD: ${{ secrets.P2G_PELOTON__PASSWORD }}
         P2G_GARMIN__EMAIL: ${{ secrets.P2G_GARMIN__EMAIL }}
         P2G_GARMIN__PASSWORD: ${{ secrets.P2G_GARMIN__PASSWORD }}
-       DEVICE_INFO: ${{ secrets.DEVICE_INFO }} 
+        DEVICE_INFO: ${{ secrets.DEVICE_INFO }}
         TZ: America/Chicago
 
     - name: ⤴ Upload output directory
@@ -95,6 +93,7 @@ jobs:
         name: output
         path: ${{ env.OUTPUT_DIR }}
         if-no-files-found: error
+
 
 
 
