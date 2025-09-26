@@ -63,7 +63,7 @@ jobs:
           },
           "Device": {
             "Manufacturer": "Garmin",
-            "ProductId": 3375,
+            "ProductId": 3907,
             "DeviceId": 3474134320
           },
           "Observability": {
@@ -99,6 +99,7 @@ jobs:
         name: output
         path: ${{ env.OUTPUT_DIR }}
         if-no-files-found: error
+
 
 
 
